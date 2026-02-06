@@ -16,58 +16,67 @@ export function ContactSection() {
     const ctx = canvas.getContext('2d')
     if (!ctx) return
 
-    canvas.width = canvas.offsetWidth
+    canvas.width = window.innerWidth
     canvas.height = canvas.offsetHeight
 
-    const waves: Array<{
+    const particles: Array<{
+      x: number
       y: number
-      length: number
-      amplitude: number
-      frequency: number
-    }> = [
-      { y: canvas.height * 0.3, length: 0.02, amplitude: 30, frequency: 0.01 },
-      { y: canvas.height * 0.5, length: 0.015, amplitude: 40, frequency: 0.015 },
-      { y: canvas.height * 0.7, length: 0.025, amplitude: 25, frequency: 0.012 },
-    ]
+      vx: number
+      vy: number
+      radius: number
+    }> = []
 
-    let increment = 0
+    for (let i = 0; i < 70; i++) {
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        radius: Math.random() * 2 + 0.8,
+      })
+    }
 
     function animate() {
       if (!ctx || !canvas) return
-      ctx.fillStyle = 'rgba(8, 10, 20, 0.03)'
+      ctx.fillStyle = 'rgba(8, 10, 20, 0.05)'
       ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-      waves.forEach((wave, index) => {
+      particles.forEach((particle, i) => {
+        particle.x += particle.vx
+        particle.y += particle.vy
+
+        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
+        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
+
         ctx.beginPath()
-        ctx.moveTo(0, wave.y)
+        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
+        ctx.fillStyle = 'rgba(100, 200, 255, 0.5)'
+        ctx.fill()
 
-        for (let i = 0; i < canvas.width; i++) {
-          ctx.lineTo(
-            i,
-            wave.y +
-              Math.sin(i * wave.length + increment * wave.frequency) *
-                wave.amplitude
-          )
-        }
+        particles.forEach((otherParticle, j) => {
+          if (i === j) return
+          const dx = particle.x - otherParticle.x
+          const dy = particle.y - otherParticle.y
+          const distance = Math.sqrt(dx * dx + dy * dy)
 
-        const gradient = ctx.createLinearGradient(0, 0, canvas.width, 0)
-        gradient.addColorStop(0, `rgba(100, 150, 255, ${0.1 + index * 0.05})`)
-        gradient.addColorStop(0.5, `rgba(100, 200, 255, ${0.2 + index * 0.05})`)
-        gradient.addColorStop(1, `rgba(100, 150, 255, ${0.1 + index * 0.05})`)
-
-        ctx.strokeStyle = gradient
-        ctx.lineWidth = 2
-        ctx.stroke()
+          if (distance < 110) {
+            ctx.beginPath()
+            ctx.moveTo(particle.x, particle.y)
+            ctx.lineTo(otherParticle.x, otherParticle.y)
+            ctx.strokeStyle = `rgba(100, 200, 255, ${0.18 * (1 - distance / 110)})`
+            ctx.stroke()
+          }
+        })
       })
 
-      increment += 0.5
       requestAnimationFrame(animate)
     }
 
     animate()
 
     const handleResize = () => {
-      canvas.width = canvas.offsetWidth
+      canvas.width = window.innerWidth
       canvas.height = canvas.offsetHeight
     }
 
