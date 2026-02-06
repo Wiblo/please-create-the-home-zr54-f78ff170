@@ -49,7 +49,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={geistSans.className}>
+    <html lang="en" className={`${geistSans.className} dark`}>
       <body className={`${geistMono.variable} antialiased`}>
         <WibloDesignBridge />
 
