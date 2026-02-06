@@ -9,7 +9,7 @@ const skills = [
     category: 'Frontend',
     technologies: [
       { name: 'React', level: 95 },
-      { name: 'Next.js', level: 90 },
+      { name: 'Next.js', level: 100 },
       { name: 'TypeScript', level: 88 },
       { name: 'Tailwind CSS', level: 92 },
     ],
