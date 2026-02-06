@@ -8,29 +8,29 @@ import { useState } from 'react'
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
+    title: 'SaaS Dashboard',
     description:
-      'Full-stack e-commerce solution with real-time inventory, payment integration, and admin dashboard.',
-    tags: ['Next.js', 'Stripe', 'PostgreSQL', 'Tailwind'],
-    gradient: 'from-blue-500 to-cyan-500',
+      'Modern analytics platform with real-time metrics, custom visualizations, and team collaboration features.',
+    tags: ['Next.js', 'TypeScript', 'Tailwind', 'Prisma'],
+    gradient: 'from-blue-600 to-cyan-600',
     github: 'https://github.com',
     live: 'https://example.com',
   },
   {
-    title: 'AI Content Generator',
+    title: 'Developer Portfolio',
     description:
-      'Machine learning powered content creation tool with natural language processing and custom training models.',
-    tags: ['React', 'Python', 'OpenAI', 'FastAPI'],
-    gradient: 'from-purple-500 to-pink-500',
+      'Interactive portfolio site featuring smooth animations, dark mode, and optimized performance with Lighthouse score of 100.',
+    tags: ['React', 'Framer Motion', 'CSS Grid', 'Vercel'],
+    gradient: 'from-purple-600 to-blue-600',
     github: 'https://github.com',
     live: 'https://example.com',
   },
   {
-    title: 'Real-Time Analytics Dashboard',
+    title: 'Task Management App',
     description:
-      'Interactive data visualization platform with live updates, custom charts, and export capabilities.',
-    tags: ['Vue', 'D3.js', 'WebSockets', 'Node.js'],
-    gradient: 'from-green-500 to-emerald-500',
+      'Collaborative task tracker with drag-and-drop interface, real-time updates, and advanced filtering capabilities.',
+    tags: ['Next.js', 'Zustand', 'DnD Kit', 'Supabase'],
+    gradient: 'from-cyan-600 to-blue-600',
     github: 'https://github.com',
     live: 'https://example.com',
   },
