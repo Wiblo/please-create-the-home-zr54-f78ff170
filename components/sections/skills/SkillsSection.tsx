@@ -143,10 +143,7 @@ export function SkillsSection() {
               className="group animate-fade-in-up"
               style={{ animationDelay: `${idx * 150}ms` }}
             >
-              <div className="relative p-8 h-full rounded-2xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/50 transition-all duration-500 hover:shadow-[0_0_30px_rgba(100,150,255,0.3)] overflow-hidden">
-                {/* Animated gradient background on hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
+              <div className="relative p-8 h-full overflow-hidden">
                 {/* Glowing corner effect */}
                 <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
