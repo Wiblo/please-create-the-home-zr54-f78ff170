@@ -4,96 +4,10 @@ import { Container } from '@/components/layout/Container'
 import { SectionWrapper } from '@/components/layout/SectionWrapper'
 import { Button } from '@/components/ui/button'
 import { Mail, MessageSquare, Send } from 'lucide-react'
-import { useEffect, useRef } from 'react'
 
 export function ContactSection() {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-
-  useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    canvas.width = window.innerWidth
-    canvas.height = canvas.offsetHeight
-
-    const particles: Array<{
-      x: number
-      y: number
-      vx: number
-      vy: number
-      radius: number
-    }> = []
-
-    for (let i = 0; i < 70; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.35,
-        vy: (Math.random() - 0.5) * 0.35,
-        radius: Math.random() * 2 + 0.8,
-      })
-    }
-
-    function animate() {
-      if (!ctx || !canvas) return
-      ctx.fillStyle = 'rgba(8, 10, 20, 0.05)'
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      particles.forEach((particle, i) => {
-        particle.x += particle.vx
-        particle.y += particle.vy
-
-        if (particle.x < 0 || particle.x > canvas.width) particle.vx *= -1
-        if (particle.y < 0 || particle.y > canvas.height) particle.vy *= -1
-
-        ctx.beginPath()
-        ctx.arc(particle.x, particle.y, particle.radius, 0, Math.PI * 2)
-        ctx.fillStyle = 'rgba(100, 200, 255, 0.5)'
-        ctx.fill()
-
-        particles.forEach((otherParticle, j) => {
-          if (i === j) return
-          const dx = particle.x - otherParticle.x
-          const dy = particle.y - otherParticle.y
-          const distance = Math.sqrt(dx * dx + dy * dy)
-
-          if (distance < 110) {
-            ctx.beginPath()
-            ctx.moveTo(particle.x, particle.y)
-            ctx.lineTo(otherParticle.x, otherParticle.y)
-            ctx.strokeStyle = `rgba(100, 200, 255, ${0.18 * (1 - distance / 110)})`
-            ctx.stroke()
-          }
-        })
-      })
-
-      requestAnimationFrame(animate)
-    }
-
-    animate()
-
-    const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = canvas.offsetHeight
-    }
-
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
-  }, [])
-
   return (
-    <SectionWrapper className="relative overflow-hidden bg-gradient-to-b from-background to-primary/10">
-      {/* Animated canvas background */}
-      <canvas
-        ref={canvasRef}
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      />
-
-      {/* Grid overlay */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:48px_48px]" />
+    <SectionWrapper className="relative overflow-hidden bg-background/80 backdrop-blur-sm">
 
       <Container className="relative z-10">
         <div className="max-w-4xl mx-auto">
